@@ -1,0 +1,19 @@
+{
+  "name": "artisearch",
+  "version": "1.0.0",
+  "description": "Busca artistas",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon ."
+  },
+  "author": "Albino Granados David",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^3.13.0",
+    "artisearch": "file:",
+    "dotenv": "^16.4.7",
+    "mongoose": "^8.12.1",
+    "nodemon": "^3.1.9"
+  }
+}
