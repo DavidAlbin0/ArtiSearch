@@ -5,7 +5,8 @@ const ContratoSchema = new mongoose.Schema({
     artista: { type: mongoose.Schema.Types.ObjectId, ref: 'Artista', required: true },
     fechaInicio: { type: Date, required: true },
     fechaFin: { type: Date, required: true },
-    detalles: { type: String, required: true, trim: true }, // Descripción del contrato
+    detalles: { type: String, required: true, trim: true },
+    monto: { type: Number, required: true, trim: true},
     estado: { 
         type: String, 
         enum: ['Pendiente', 'Aceptado', 'Rechazado', 'Finalizado', 'Cancelado', 'En proceso de devolución'], 

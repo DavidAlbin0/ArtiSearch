@@ -6,10 +6,13 @@ const ArtistaSchema = new mongoose.Schema({
     apellidoM: { type: String, required: true, trim: true },
     email: { type: String, required: true, trim: true, unique: true },
     telefono: { type: Number, required: true, unique: true },
-    ubicacion: { type: String, required: true, trim: true }, // Ejemplo: "CDMX, México"
+    ubicacion: { type: String, trim: true }, // Ejemplo: "CDMX, México"
     descripcion: { type: String, trim: true }, // Breve descripción del artista
     especialidad: { type: String, trim: true }, // Ejemplo: "Pintura, Escultura"
-    creado: { type: Date, default: Date.now }
+    genero:  { type: String, trim: true},
+    creado: { type: Date, default: Date.now },
+    tipoUser: { type: Number, required: true, trim: true },
+    password: { type: String, required: true, trim: true },
 });
 
 module.exports = mongoose.model('Artista', ArtistaSchema);

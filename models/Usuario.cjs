@@ -1,12 +1,6 @@
 const mongoose = require('mongoose');
 
 const UsuarioSchema = new mongoose.Schema({
-    idUsuario: {
-        type: Number,
-        required: true,
-        trim: true,
-        unique: true
-    },
     nombre: {
         type: String,
         required: true,
@@ -18,6 +12,11 @@ const UsuarioSchema = new mongoose.Schema({
         trim: true
     },
     apellidoM: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    genero: {
         type: String,
         required: true,
         trim: true
@@ -47,7 +46,12 @@ const UsuarioSchema = new mongoose.Schema({
         required: true,
         trim: true,
         unique: true
-    }
+    },
+    ubicacion: { 
+        type: String,
+        trim: true 
+    }, 
+
 });
 
 module.exports = mongoose.model('Usuario', UsuarioSchema);
