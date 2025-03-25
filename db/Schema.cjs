@@ -32,6 +32,7 @@ type Usuario {
     }
 
     type Calificacion {
+        id: ID
         usuario: String
         artista: String
         calificacion: String
@@ -39,6 +40,7 @@ type Usuario {
     }
 
     type Contrato {
+        id: ID
         usuario: String
         artista: String
         fechaInicio: String
@@ -49,6 +51,7 @@ type Usuario {
     }
 
     type Post{
+        id: ID
         artista: String
         titulo: String
         descripcion: String
@@ -58,6 +61,7 @@ type Usuario {
     }
 
     type Pago{
+        id: ID
         contrato: String
         usuario: String
         artista: String
@@ -142,7 +146,10 @@ type Usuario {
     type Query {
         obtenerArtista: [Usuario]  # Retorna una lista de usuarios
         obtenerCalificaciones: [Calificacion] # Nueva consulta para calificaciones
-        obtenerUsuario: Usuario
+        obtenerUsuario: [Usuario]
+        obtenerPost: [Post]
+        obtenerPago: [Pago]
+        obtenerContrato: [Contrato]
     }
 `;
 

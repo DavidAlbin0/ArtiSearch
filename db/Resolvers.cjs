@@ -4,7 +4,13 @@ const resolvers = {
 
         obtenerCalificaciones: () => "Algo",
 
-        obtenerUsuario: () => "Algo"
+        obtenerUsuario: () => "Algo",
+
+        obtenerPost: () => "Algo",
+
+        obtenerContrato: () => "Algo",
+
+        obtenerPago: () => "Algo"
     },
     Mutation: {
         nuevoUsuario: (_, { input }) => {
