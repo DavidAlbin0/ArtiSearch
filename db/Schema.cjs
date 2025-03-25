@@ -32,10 +32,10 @@ type Usuario {
     }
 
     type Calificacion {
-        usuarioID: Int
-        idCalificacion: Int
-        calificacion: Int
-        calificaID: Int
+        usuario: String
+        artista: String
+        calificacion: String
+        comentario: String
     }
 
     type Contrato {
@@ -46,6 +46,25 @@ type Usuario {
         detalles: String
         estado: String
         monto: String
+    }
+
+    type Post{
+        artista: String
+        titulo: String
+        descripcion: String
+        imagen: String
+        fechaPublicacion: String
+        ubicacion: String
+    }
+
+    type Pago{
+        contrato: String
+        usuario: String
+        artista: String
+        monto: String
+        metodoPago: String
+        estado: String
+        fechaPago: String
     }
 
     # Aqui inician los input
@@ -83,12 +102,41 @@ type Usuario {
     }
 
 
+    input CalificacionInput {
+        usuario: String
+        artista: String
+        calificacion: String
+        comentario: String
+    }
+
+    input PostInput {
+        artista: String
+        titulo: String
+        descripcion: String
+        imagen: String
+        fechaPublicacion: String
+        ubicacion: String
+    }
+
+    input PagoInput {
+        contrato: String
+        usuario: String
+        artista: String
+        monto: String
+        metodoPago: String
+        estado: String
+        fechaPago: String
+    }
+
     # Aqui inician los Mutation
     
     type Mutation {
         nuevoUsuario(input: UsuarioInput) : String
         nuevoArtista(input: ArtistaInput) : String
         nuevoContrato(input: ContratoInput) : String
+        nuevaCalificacion(input: CalificacionInput) : String
+        nuevoPago(input: PagoInput) : String
+        nuevoPost(input: PostInput) : String
     }
 
     type Query {

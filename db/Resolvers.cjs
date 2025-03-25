@@ -21,6 +21,22 @@ const resolvers = {
             console.log(input);
 
             return"Creando Contrato ..."
+        },
+        nuevaCalificacion: (_, { input }) => {
+            console.log(input);
+
+            return"Publicando Calificacion ..."
+        },
+        
+        nuevoPago: (_, { input }) => {
+            console.log(input);
+
+            return"Procesando Pago ..."
+        },
+        nuevoPost: (_, { input }) => {
+            console.log(input);
+
+            return"Publicando post ..."
         }
     }
 };
