@@ -135,8 +135,8 @@ type Usuario {
     # Aqui inician los Mutation
     
     type Mutation {
-        nuevoUsuario(input: UsuarioInput) : String
-        nuevoArtista(input: ArtistaInput) : String
+        nuevoUsuario(input: UsuarioInput) : Usuario
+        nuevoArtista(input: ArtistaInput) : Artista
         nuevoContrato(input: ContratoInput) : String
         nuevaCalificacion(input: CalificacionInput) : String
         nuevoPago(input: PagoInput) : String

@@ -1,13 +1,13 @@
 const { ApolloServer } = require("apollo-server");
-const { typeDefs } = require("../CRM GraphQL/db/Schema.cjs")
-const { resolvers } = require("../CRM GraphQL/db/Resolvers.cjs")
-const conectarDB = require('../CRM GraphQL/config/db.cjs')
-const Usuario = require('../CRM GraphQL/models/Usuario.cjs');
-const Artista =require('../CRM GraphQL/models/Artista.cjs');
-const Post =require('../CRM GraphQL/models/Post.cjs');
-const Calificacion = require('../CRM GraphQL/models/Calificacion.cjs');
-const Contrato = require('../CRM GraphQL/models/Contrato.cjs');
-const Pago = require('../CRM GraphQL/models/Pago.cjs');
+const { typeDefs } = require("../ArtiSearch Back/db/Schema.cjs")
+const { resolvers } = require("../ArtiSearch Back/db/Resolvers.cjs")
+const conectarDB = require('../ArtiSearch Back/config/db.cjs')
+const Usuario = require('../ArtiSearch Back/models/Usuario.cjs');
+const Artista =require('../ArtiSearch Back/models/Artista.cjs');
+const Post =require('../ArtiSearch Back/models/Post.cjs');
+const Calificacion = require('../ArtiSearch Back/models/Calificacion.cjs');
+const Contrato = require('../ArtiSearch Back/models/Contrato.cjs');
+const Pago = require('../ArtiSearch Back/models/Pago.cjs');
 
 //Conetcar a la BD
 conectarDB();

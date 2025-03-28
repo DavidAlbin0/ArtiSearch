@@ -11,7 +11,6 @@ const ArtistaSchema = new mongoose.Schema({
     especialidad: { type: String, trim: true }, // Ejemplo: "Pintura, Escultura"
     genero:  { type: String, trim: true},
     creado: { type: Date, default: Date.now },
-    tipoUser: { type: Number, required: true, trim: true },
     password: { type: String, required: true, trim: true },
 });
 
