@@ -7,8 +7,9 @@ const PagoSchema = new mongoose.Schema({
     monto: { type: Number, required: true, min: 0 }, // Monto pagado
     metodoPago: { 
         type: String, 
-        enum: ['Tarjeta de Crédito', 'Tarjeta de Débito', 'PayPal', 'Transferencia Bancaria'], 
-        required: true 
+        enum: ['Tarjeta de Crédito', 'Tarjeta de Débito', 'PayPal', 'Transferencia Bancaria', 'Pendiente'], 
+        required: true, 
+        default: 'Pendiente'
     },
     estado: { 
         type: String, 

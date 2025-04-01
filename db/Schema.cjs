@@ -3,6 +3,10 @@ const { gql } = require("apollo-server");
 // Definición del esquema
 const typeDefs = gql`
 
+type Token {
+    token: String
+}
+
 # Aqui inician los type definition 
 
 type Usuario {
@@ -35,8 +39,9 @@ type Usuario {
         id: ID
         usuario: String
         artista: String
-        calificacion: String
+        calif: Float
         comentario: String
+        imagen: String
     }
 
     type Contrato {
@@ -45,9 +50,10 @@ type Usuario {
         artista: String
         fechaInicio: String
         fechaFin: String
+        fechaEstimadaFin: String
         detalles: String
         estado: String
-        monto: String
+        monto: Float
     }
 
     type Post{
@@ -65,7 +71,7 @@ type Usuario {
         contrato: String
         usuario: String
         artista: String
-        monto: String
+        monto: Float
         metodoPago: String
         estado: String
         fechaPago: String
@@ -100,17 +106,19 @@ type Usuario {
         artista: String
         fechaInicio: String
         fechaFin: String
+        fechaEstimadaFin: String
         detalles: String
         estado: String
-        monto: String
+        monto: Float
     }
 
 
     input CalificacionInput {
         usuario: String
         artista: String
-        calificacion: String
+        calif: Float
         comentario: String
+        imagen: String
     }
 
     input PostInput {
@@ -126,25 +134,38 @@ type Usuario {
         contrato: String
         usuario: String
         artista: String
-        monto: String
+        monto: Float
         metodoPago: String
         estado: String
         fechaPago: String
     }
 
+    input AutenticarInput{
+        email: String
+        password: String
+    }
+
+    input AutenticArtistaInput{
+        email: String
+        password: String
+    }
     # Aqui inician los Mutation
     
     type Mutation {
         nuevoUsuario(input: UsuarioInput) : Usuario
         nuevoArtista(input: ArtistaInput) : Artista
-        nuevoContrato(input: ContratoInput) : String
-        nuevaCalificacion(input: CalificacionInput) : String
-        nuevoPago(input: PagoInput) : String
-        nuevoPost(input: PostInput) : String
+        nuevoContrato(input: ContratoInput) : Contrato
+        nuevoPago(input: PagoInput) : Pago
+        nuevaCalificacion(input: CalificacionInput) : Calificacion
+        nuevoPost(input: PostInput) : Post
+        autenticarUsuario(input: AutenticarInput) : Token
+        autenticarArtista(input: AutenticArtistaInput): Token
     }
+    
+
 
     type Query {
-        obtenerArtista: [Usuario]  # Retorna una lista de usuarios
+        obtenerArtista: [Artista]  # Retorna una lista de usuarios
         obtenerCalificaciones: [Calificacion] # Nueva consulta para calificaciones
         obtenerUsuario: [Usuario]
         obtenerPost: [Post]
