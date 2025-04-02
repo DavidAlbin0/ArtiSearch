@@ -43,6 +43,12 @@ type Usuario {
         comentario: String
         imagen: String
     }
+    
+    type CalificacionesResponse {
+        promedio: Float
+        totalCalificaciones: Int
+        detalles: [Calificacion]
+      }
 
     type Contrato {
         id: ID
@@ -64,6 +70,18 @@ type Usuario {
         imagen: String
         fechaPublicacion: String
         ubicacion: String
+    }
+
+    type PostResponse{
+        id: ID
+        artista: String
+        titulo: String
+        descripcion: String
+        imagen: String
+        fechaPublicacion: String
+        ubicacion: String
+        detalles: [Post]
+
     }
 
     type Pago{
@@ -160,18 +178,26 @@ type Usuario {
         nuevoPost(input: PostInput) : Post
         autenticarUsuario(input: AutenticarInput) : Token
         autenticarArtista(input: AutenticArtistaInput): Token
+        actualizarPost(id: ID, input: PostInput): Post
+        eliminarPost(id: ID!) : String
     }
     
 
-
     type Query {
-        obtenerArtista: [Artista]  # Retorna una lista de usuarios
-        obtenerCalificaciones: [Calificacion] # Nueva consulta para calificaciones
-        obtenerUsuario: [Usuario]
-        obtenerPost: [Post]
-        obtenerPago: [Pago]
-        obtenerContrato: [Contrato]
+        obtenerArtista(token: String!): Artista 
+        promedioCalif(token: String!): CalificacionesResponse
+        obtenerCalificaciones(token: String!): [Calificacion]
+        obtenerUsuario(token: String!): Usuario
+        obtenerPost(token: String!): [Post]
+        obtenerPostAll: [Post]
+        obtenerPago(token: String!): [Pago]
+        obtenerContrato(token: String!): [Contrato]
+        obtenerArtistaAll: [Artista]
+        obtenerContratoUser(token: String!): [Contrato]
+        obtenerPagoUser(token: String!): [Pago]
+        obtenerArtistaClick(id: ID!) : Artista
     }
+    
 `;
 
 module.exports = { typeDefs };

@@ -2,7 +2,7 @@ const Usuario = require('../models/Usuario.cjs');
 const Artista = require('../models/Artista.cjs');
 const Contrato = require('../models/Contrato.cjs');
 const Pago = require('../models/Pago.cjs');
-const Calificacion = require('../models/Calificacion.cjs');
+const Calificacion = require('../models/Calificacion.cjs')
 const Post = require('../models/Post.cjs');
 const bcrypt = require('bcryptjs'); // IMPORTAR bcryptjs
 const bcryptjs = require('bcryptjs'); // IMPORTAR bcryptjs
@@ -25,17 +25,233 @@ const crearTokenArt = (Artista, PALABRASECRETA, expiresIn) => {
 
 const resolvers = {
     Query: {
-        obtenerArtista: () => "Algo",
+            //************************************************//
+                        //Consultas artista//
+          //************************************************//
+        obtenerArtista: async (_, {token}) => {
+            const ArtistaID = await jwt.verify(token, process.env.PALABRASECRETA) 
+
+            return ArtistaID
+        },
         
-        obtenerCalificaciones: () => "Algo",
+        obtenerCalificaciones: async (_, { token }) => {
+            try {
+              // Verifica el token
+              const decodedToken = await jwt.verify(token, process.env.PALABRASECRETA);
+      
+              // Depuración: Verifica qué datos tiene el token
+              console.log("Datos del Token:", decodedToken);
+      
+              if (!decodedToken.nombre) {
+                throw new Error("Token inválido o sin nombre.");
+              }
+      
+              // Busca las calificaciones en la base de datos
+              const calificaciones = await Calificacion.find({ "artista": decodedToken.id });
+      
+              // Depuración: Verifica qué datos se están obteniendo
+              console.log("Calificaciones encontradas:", calificaciones);
+      
+              return calificaciones;
+            } catch (error) {
+              console.log("Error al obtener las calificaciones:", error);
+              throw new Error("No se pudieron obtener las calificaciones.");
+            }
+          },
 
-        obtenerUsuario: () => "Algo",
+          promedioCalif: async (_, { token }) => {
+            try {
+              // Verifica el token
+              const decodedToken = await jwt.verify(token, process.env.PALABRASECRETA);
+              console.log("Datos del Token:", decodedToken);
+          
+              if (!decodedToken.nombre) {
+                throw new Error("Token inválido o sin nombre.");
+              }
+          
+              // Busca las calificaciones en la base de datos
+              const calificaciones = await Calificacion.find({ "artista": decodedToken.id });
+              console.log("Calificaciones encontradas:", calificaciones);
+          
+              if (calificaciones.length === 0) {
+                throw new Error("No hay calificaciones para este usuario.");
+              }
+          
+              // Calcula el promedio
+              let sumatoria = 0;
+              for (let item of calificaciones) {
+                sumatoria += item.calif;
+              }
+              let promedio = sumatoria / calificaciones.length;
+          
+              return {
+                promedio,
+                totalCalificaciones: calificaciones.length,
+                detalles: calificaciones,
+              };
+            } catch (error) {
+              console.log("Error al calcular el promedio:", error);
+              throw new Error("No se pudo calcular el promedio.");
+            }
+          },
+          
+        obtenerUsuario: async (_, {token}) => {
+            const UsuarioID = await jwt.verify(token, process.env.PALABRASECRETA) 
 
-        obtenerPost: () => "Algo",
+            return UsuarioID
+        },
 
-        obtenerContrato: () => "Algo",
+        obtenerPost: async (_, {token}) =>  {
+            try {
+              // Verifica el token
+              const decodedToken = await jwt.verify(token, process.env.PALABRASECRETA);
+      
+              // Depuración: Verifica qué datos tiene el token
+              console.log("Datos del Token:", decodedToken);
+      
+              if (!decodedToken.nombre) {
+                throw new Error("Token inválido o sin nombre.");
+              }
+      
+              // Busca las calificaciones en la base de datos
+              const posts = await Post.find({ "artista": decodedToken.id });
+      
+              // Depuración: Verifica qué datos se están obteniendo
+              console.log("Calificaciones encontradas:", posts);
+      
+              return posts;
+            } catch (error) {
+              console.log("Error al obtener las calificaciones:", error);
+              throw new Error("No se pudieron obtener las calificaciones.");
+            }
+          },
 
-        obtenerPago: () => "Algo"
+        obtenerContrato: async (_, {token}) =>  {
+            try {
+              // Verifica el token
+              const decodedToken = await jwt.verify(token, process.env.PALABRASECRETA);
+      
+              // Depuración: Verifica qué datos tiene el token
+              console.log("Datos del Token:", decodedToken);
+      
+              if (!decodedToken.nombre) {
+                throw new Error("Token inválido o sin nombre.");
+              }
+      
+              // Busca las calificaciones en la base de datos
+              const contratos = await Contrato.find({ "artista": decodedToken.id });
+      
+              // Depuración: Verifica qué datos se están obteniendo
+              console.log("Calificaciones encontradas:", contratos);
+      
+              return contratos;
+            } catch (error) {
+              console.log("Error al obtener las calificaciones:", error);
+              throw new Error("No se pudieron obtener las calificaciones.");
+            }
+          },
+
+        obtenerPago: async (_, {token}) =>  {
+            try {
+              // Verifica el token
+              const decodedToken = await jwt.verify(token, process.env.PALABRASECRETA);
+      
+              // Depuración: Verifica qué datos tiene el token
+              console.log("Datos del Token:", decodedToken);
+      
+              if (!decodedToken.nombre) {
+                throw new Error("Token inválido o sin nombre.");
+              }
+      
+              // Busca las calificaciones en la base de datos
+              const pagos = await Pago.find({ "artista": decodedToken.id });
+      
+              // Depuración: Verifica qué datos se están obteniendo
+              console.log("Calificaciones encontradas:", pagos);
+      
+              return pagos;
+            } catch (error) {
+              console.log("Error al obtener las calificaciones:", error);
+              throw new Error("No se pudieron obtener las calificaciones.");
+            }
+          },
+
+
+          //************************************************//
+                        //Consultas generales//
+          //************************************************//
+
+          obtenerPostAll: async () =>  {
+          //Aqui trae todos de todos
+          try {
+                const posts = await Post.find({});
+                return posts; 
+          } catch (error) {
+              console.log(error);
+          }
+          },
+
+        obtenerContratoUser: async (_, {token}) =>  {
+            try {
+              // Verifica el token
+              const decodedToken = await jwt.verify(token, process.env.PALABRASECRETA);
+      
+              // Depuración: Verifica qué datos tiene el token
+              console.log("Datos del Token:", decodedToken);
+      
+              if (!decodedToken.nombre) {
+                throw new Error("Token inválido o sin nombre.");
+              }
+      
+              // Busca las calificaciones en la base de datos
+              const contratos = await Contrato.find({ "usuario": decodedToken.id });
+      
+              // Depuración: Verifica qué datos se están obteniendo
+              console.log("Calificaciones encontradas:", contratos);
+      
+              return contratos;
+            } catch (error) {
+              console.log("Error al obtener las calificaciones:", error);
+              throw new Error("No se pudieron obtener las calificaciones.");
+            }
+          },
+
+        obtenerArtistaClick: async (_, { id }) => {
+            //Revisar si existe el artiusta o nel
+            const artistaAlone = await Artista.findById(id);
+
+            if(!artistaAlone){
+                throw new Error('Artista no encontrado')
+            }
+
+            return artistaAlone
+        },
+
+        obtenerPagoUser: async (_, {token}) =>  {
+            try {
+              // Verifica el token
+              const decodedToken = await jwt.verify(token, process.env.PALABRASECRETA);
+      
+              // Depuración: Verifica qué datos tiene el token
+              console.log("Datos del Token:", decodedToken);
+      
+              if (!decodedToken.nombre) {
+                throw new Error("Token inválido o sin nombre.");
+              }
+      
+              // Busca las calificaciones en la base de datos
+              const pagos = await Pago.find({ "usuario": decodedToken.id });
+      
+              // Depuración: Verifica qué datos se están obteniendo
+              console.log("Calificaciones encontradas:", pagos);
+      
+              return pagos;
+            } catch (error) {
+              console.log("Error al obtener las calificaciones:", error);
+              throw new Error("No se pudieron obtener las calificaciones.");
+            }
+          },
+
     },
 
     Mutation: {
@@ -131,7 +347,7 @@ const resolvers = {
 
             // Crear Token
             return {
-                token: crearToken(existeArtista, process.env.PALABRASECRETA, '72h'),
+                token: crearTokenArt(existeArtista, process.env.PALABRASECRETA, '72h'),
             };
         },
 
@@ -272,6 +488,30 @@ const resolvers = {
                 console.error("Error al publicar el post:", error.message);
                 throw new Error("No se pudo publicar el post");
             }
+        },
+
+        actualizarPost: async (_,{id, input}) => {
+
+            let post = await Post.findById(id);
+            if(!post){
+                throw new Error('No existe el post');
+            }
+
+            //Si lo hace lo guardamos
+            post = await Post.findByIdAndUpdate({_id: id}, input, {new: true});
+            return post;
+        },
+
+        eliminarPost: async (_, {id}) => {
+            let post = await Post.findById(id);
+
+            if(!post) {
+                throw new Error('No existe el post')
+            }
+
+            await Post.findByIdAndDelete({_id: id});
+
+            return "Post Eliminado :)"
         },
     }
 };
