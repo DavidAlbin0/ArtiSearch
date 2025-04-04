@@ -7,8 +7,10 @@ type Token {
     token: String
 }
 
-# Aqui inician los type definition 
-
+   # //************************************************//
+   #            //Definicion de Objetos//
+   # //************************************************//
+    
 type Usuario {
         id: ID
         nombre: String
@@ -95,7 +97,18 @@ type Usuario {
         fechaPago: String
     }
 
-    # Aqui inician los input
+    
+    type topCliente{
+        id: ID
+        Calificacion: Float
+        Artista: [Artista]
+        
+    }
+
+   # //************************************************//
+   #                  //Inputs//
+   # //************************************************//
+    
 
     input UsuarioInput {
         nombre: String
@@ -167,25 +180,46 @@ type Usuario {
         email: String
         password: String
     }
-    # Aqui inician los Mutation
+
+   # //************************************************//
+   #                  //Mutations//
+   # //************************************************//
     
     type Mutation {
+        #INSERTS
         nuevoUsuario(input: UsuarioInput) : Usuario
         nuevoArtista(input: ArtistaInput) : Artista
         nuevoContrato(input: ContratoInput) : Contrato
         nuevoPago(input: PagoInput) : Pago
         nuevaCalificacion(input: CalificacionInput) : Calificacion
         nuevoPost(input: PostInput) : Post
+
+        #AUTENTICACIONES
         autenticarUsuario(input: AutenticarInput) : Token
         autenticarArtista(input: AutenticArtistaInput): Token
+
+        #ACTUALIZACIONES
         actualizarPost(id: ID, input: PostInput): Post
+        actualizarContrato(id: ID, input: ContratoInput): Contrato
+        actualizarPago(id: ID, input: PagoInput): Pago
+        actualizarArtista(id: ID, input: ArtistaInput): Artista
+        actualizarUsuario(id: ID, input: UsuarioInput): Usuario
+        
+        #ELIMINACIONES
+        eliminarCallificacion(id: ID!) : String
         eliminarPost(id: ID!) : String
     }
     
-
+   # //************************************************//
+   #                  //Querys//
+   # //************************************************//
+    
     type Query {
-        obtenerArtista(token: String!): Artista 
+        #PROMEDIO DE CALIFICACION 
         promedioCalif(token: String!): CalificacionesResponse
+        
+        #QUERYS GENERALES
+        obtenerArtista(token: String!): Artista
         obtenerCalificaciones(token: String!): [Calificacion]
         obtenerUsuario(token: String!): Usuario
         obtenerPost(token: String!): [Post]
@@ -196,6 +230,9 @@ type Usuario {
         obtenerContratoUser(token: String!): [Contrato]
         obtenerPagoUser(token: String!): [Pago]
         obtenerArtistaClick(id: ID!) : Artista
+            
+        #BUSQUEDAS AVANZADAS 
+        mejoresCalificados: [topCliente]
     }
     
 `;
