@@ -217,6 +217,17 @@ const resolvers = {
       }
     },
 
+    
+    obtenerPostsClick: async (_, { artista }) => {
+      const posts = await Post.find({ artista });  // Usar "Post" en lugar de "post"
+      
+      if (!posts.length) {
+        throw new Error("Este usuario no tiene posts");
+      }
+      
+      return posts;
+    },
+
     obtenerContratoUser: async (_, { token }) => {
       try {
         // Verifica el token

@@ -230,7 +230,8 @@ type Usuario {
         obtenerContratoUser(token: String!): [Contrato]
         obtenerPagoUser(token: String!): [Pago]
         obtenerArtistaClick(id: ID!) : Artista
-            
+        obtenerPostsClick(artista: ID!): [Post]
+        
         #BUSQUEDAS AVANZADAS 
         mejoresCalificados: [topCliente]
     }
