@@ -11,8 +11,8 @@ require("dotenv").config({ path: "PALABRASECRETA" });
 
 
     //************************************************//
-                 //Creacion de Tokens//
-    //************************************************//
+                 //Creacion de Tokens//                 
+    //************************************************// 
 const crearToken = (usuario, PALABRASECRETA, expiresIn) => {
   console.log(usuario); // Verifica qué valores tiene usuario
   const { id, email, nombre, apellidoP } = usuario;
@@ -216,6 +216,17 @@ const resolvers = {
         console.log(error);
       }
     },
+
+    obtenerArtistaAll: async () => {
+      //Aqui trae todos de todos
+      try {
+        const artistas = await Artista.find({});
+        return artistas;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
 
     
     obtenerPostsClick: async (_, { artista }) => {
@@ -587,7 +598,7 @@ const resolvers = {
       }
 
       //Si lo hace lo guardamos
-      contrato = await Post.findByIdAndUpdate({ _id: id }, input, {
+      contrato = await Contrato.findByIdAndUpdate({ _id: id }, input, {
         new: true,
       });
       return contrato;
@@ -600,7 +611,7 @@ const resolvers = {
       }
 
       //Si lo hace lo guardamos
-      pago = await Post.findByIdAndUpdate({ _id: id }, input, { new: true });
+      pago = await Pago.findByIdAndUpdate({ _id: id }, input, { new: true });
       return pago;
     },
 
@@ -611,9 +622,10 @@ const resolvers = {
       }
 
       //Si lo hace lo guardamos
-      artista = await Post.findByIdAndUpdate({ _id: id }, input, { new: true });
+      artista = await Artista.findByIdAndUpdate({ _id: id }, input, { new: true });
       return artista;
     },
+
     actualizarUsuario: async (_, { id, input }) => {
       let usuario = await Usuario.findById(id);
       if (!usuario) {
@@ -621,7 +633,7 @@ const resolvers = {
       }
 
       //Si lo hace lo guardamos
-      usuario = await Post.findByIdAndUpdate({ _id: id }, input, { new: true });
+      usuario = await Usuario.findByIdAndUpdate({ _id: id }, input, { new: true });
       return usuario;
     },
 
@@ -648,7 +660,7 @@ const resolvers = {
         throw new Error("No existe el post");
       }
 
-      await Post.findByIdAndDelete({ _id: id });
+      await Calificacion.findByIdAndDelete({ _id: id });
 
       return "Post Eliminado :)";
     },

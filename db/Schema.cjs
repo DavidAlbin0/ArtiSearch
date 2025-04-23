@@ -21,10 +21,12 @@ type Usuario {
         creado: String
         telefono: String
         ubicacion: String
+        imagen: String
     }
 
     type Artista {
         id: ID
+        nombreArtistico: String
         nombre: String
         apellidoP: String
         apellidoM: String
@@ -35,6 +37,7 @@ type Usuario {
         ubicacion: String
         descripcion: String
         especialidad: String
+        imagen: String
     }
 
     type Calificacion {
@@ -118,9 +121,12 @@ type Usuario {
         email: String
         telefono: String
         password: String
+        imagen: String
+
     }
 
     input ArtistaInput {
+        nombreArtistico: String
         nombre: String
         apellidoP: String
         apellidoM: String
@@ -130,6 +136,7 @@ type Usuario {
         descripcion: String
         especialidad: String
         password: String
+        imagen: String
     }
 
     input ContratoInput {
@@ -217,7 +224,10 @@ type Usuario {
     type Query {
         #PROMEDIO DE CALIFICACION 
         promedioCalif(token: String!): CalificacionesResponse
-        
+        #Aqui debes de ingresar un promedio pero para que te regrese el 
+        #promedio de un artista en especifico, es decir, que lo traiga con 
+        #el id del artista, no con el token
+
         #QUERYS GENERALES
         obtenerArtista(token: String!): Artista
         obtenerCalificaciones(token: String!): [Calificacion]

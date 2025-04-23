@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const ArtistaSchema = new mongoose.Schema({
+    nombreArtistico: { type: String, required: true, trim: true },
     nombre: { type: String, required: true, trim: true },
     apellidoP: { type: String, required: true, trim: true },
     apellidoM: { type: String, required: true, trim: true },
@@ -9,6 +10,7 @@ const ArtistaSchema = new mongoose.Schema({
     ubicacion: { type: String, trim: true }, // Ejemplo: "CDMX, México"
     descripcion: { type: String, trim: true }, // Breve descripción del artista
     especialidad: { type: String, trim: true }, // Ejemplo: "Pintura, Escultura"
+    imagen: { type: String, trim: true }, // URL de la imagen del artista
     genero:  { type: String, trim: true},
     creado: { type: Date, default: Date.now },
     password: { type: String, required: true, trim: true },
